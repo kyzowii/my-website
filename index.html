@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #FAEEE6;
+            overflow: hidden;
+        }
+        #content {
+            border: none;
+            background-color: #FFC0CB;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            padding: 20px;
+            text-align: center;
+            max-width: 600px;
+        }
+        button {
+            font-size: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transition: 0.3s;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+        }
+        #yesButton {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #noButton {
+            background-color: #f44336;
+            color: white;
+        }
+        #noButton:disabled {
+            background-color: #ddd;
+            color: #666;
+            box-shadow: none;
+        }
+        button:hover {
+            box-shadow: 0 12px 20px rgba(0,0,0,0.24), 0 17px 50px rgba(0,0,0,0.19);
+        }
+
+        .heart {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 29.6"><path fill="%23FF0000" d="M16 29.6c-1-.6-21-12.6-16-20C5.7 5.6 10.3 4 16 11c5.7-7 10.3-5.4 16-2.6 5 7.4-15 19.6-16 20z"/></svg>');
+            background-size: cover;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh); }
+            100% { transform: translateY(100vh); }
+        }
+
+        #message {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h2 id="question"> bati na us, please?</h2>
+        <button id="yesButton">YES</button>
+        <button id="noButton">NO</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        let noClickCount = 0;
+        const noButton = document.getElementById('noButton');
+        const yesButton = document.getElementById('yesButton');
+        const message = document.getElementById('message');
+        const question = document.getElementById('question');
+
+        noButton.addEventListener('click', () => {
+            noClickCount++;
+            if (noClickCount === 1) {
+                yesButton.style.fontSize = '30px';
+            } else if (noClickCount === 2) {
+                noButton.style.fontSize = '10px';
+                yesButton.style.fontSize = '40px';
+            } else if (noClickCount === 3) {
+                yesButton.style.fontSize = '90px';
+                noButton.style.fontSize = '7px';
+            } else if (noClickCount >= 4 && noClickCount < 15) {
+                noButton.style.position = 'absolute';
+                noButton.style.left = Math.random() * window.innerWidth + 'px';
+                noButton.style.top = Math.random() * window.innerHeight + 'px';
+                if (noClickCount >= 10) {
+                    message.innerText = noClickCount === 15 ? 'Oh no! You broke the button :c' : 'Are you sure?';
+                }
+                if (noClickCount === 15) {
+                    noButton.disabled = true;
+                }
+            }
+        });
+
+        yesButton.addEventListener('click', () => {
+            question.innerText = `Hey Lovieeq, I’m really sorry if I made your bad day worse. I really didn’t mean to. I wanted to comfort you, to be there for you, but I honestly didn’t know how or what to say. I felt helpless.
+
+I understand why you were a bit cold—it's okay, you were just having a rough day. I think I got overwhelmed too, kaya hindi rin ako agad nakareply. When I feel pressured or unsure, I don’t reply right away—not because I don’t care, but because I care so much and I’m scared to say the wrong thing.
+
+I should’ve updated you sooner, and I’m really sorry for that. Iloveyousomuchh. Even when I go quiet, please know I’m still here and I care—always. I’m learning, and I promise I’ll do better. `;
+
+            yesButton.style.display = 'none';
+            noButton.style.display = 'none';
+
+            for (let i = 0; i < 100; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(heart);
+            }
+        });
+    </script>
+</body>
+</html>
